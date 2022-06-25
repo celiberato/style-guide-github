@@ -23,16 +23,64 @@ import Deposits from './Deposits';
 import Orders from './Orders';
 import Alerts from '../Alerts';
 
+function Title (props){
+  return (
+    <h1>
+      {props.children}
+    </h1>
+  );
+}
+
+function Image (props) {
+
+  console.log('size', props.fontSize);
+
+  return (
+    <li key={props.key}>
+      <Title><span style={{fontSize: props.fontSize}}>{props.title}</span></Title>
+      <img alt={props.title} src={props.imagem}></img>
+    </li>
+  );
+};
+
+function ImageContainer (data) {
+  console.log(data);
+  return (
+    <>
+      <ul>
+        {data.map( obj => Image(obj))} 
+      </ul>
+    </>
+  );
+};
+
+function Portlet() {
+  const data = [
+    {key: 1, fontSize: "64px", title: 'ESTE É UM TEXTO 1', imagem: 'https://randomwordgenerator.com/img/picture-generator/54e5d7444854ae14f1dc8460962e33791c3ad6e04e5074417d2c7ed19749cd_640.jpg'},
+    {key: 2, fontSize: "32px", title: 'ESTE É UM TEXTO 2', imagem: 'https://cdn.pixabay.com/photo/2012/03/09/00/03/architecture-22527_960_720.jpg'},
+    {key: 3, fontSize: "18px", title: 'ESTE É UM TEXTO 3', imagem: 'https://cdn.pixabay.com/photo/2020/08/01/12/18/winnats-pass-5455265_960_720.jpg'}
+  ];
+  
+  return (
+    <Alerts type="info">
+      {ImageContainer(data)}
+    </Alerts>
+  );
+}
+
+
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+    <>
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
+        <Link color="inherit" href="https://mui.com/">
+          Your Website
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    </>
   );
 }
 
@@ -162,6 +210,8 @@ function DashboardContent(props) {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Portlet type="warning"></Portlet>
+
             <Grid container spacing={3}>
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>
